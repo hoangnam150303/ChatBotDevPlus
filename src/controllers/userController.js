@@ -26,6 +26,7 @@ const loginUser = async (req, res) => {
     res.json({
       success: true,
       message: "OTP send to your mail",
+      userId: user._id,
       verifyToken,
     });
   } catch (error) {
@@ -65,7 +66,7 @@ const verifyUser = async (req, res) => {
       isAuth: true,
       success: true,
       message: "Logged in succesfully!",
-      user: verify.user,
+      user: verify.user._id,
       token,
     });
   } catch (error) {
