@@ -1,6 +1,7 @@
 const { sendMail } = require("../middleWares/sendMail");
-const { User } = require("../models/userModels");
+
 const jwt = require("jsonwebtoken");
+const { User } = require("../models/userModels");
 
 // Login method
 const loginUser = async (req, res) => {
