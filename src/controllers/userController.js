@@ -17,7 +17,7 @@ const loginUser = async (req, res) => {
       });
     }
 
-    const otp = Math.floor(Math.random() * 9999); // random otp by Math.floor
+    const otp = Math.floor(Math.random() * 9000) + 1000; // random otp by Math.floor
     const verifyToken = jwt.sign({ user, otp }, process.env.Activation_sec, {
       // verifytoken
       expiresIn: "10m",
