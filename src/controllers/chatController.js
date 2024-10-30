@@ -3,7 +3,7 @@ const { Conversation } = require("../models/conversationModel");
 
 const createChat = async (req, res) => {
   try {
-    const userId = req.user._id;
+    const userId = req.user._id; // Get id of user to create a new chat, when create a new chat, that chat will have a id of the user who is chatting.
 
     const chat = await Chat.create({
       user: userId,
