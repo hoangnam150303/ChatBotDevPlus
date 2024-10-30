@@ -62,9 +62,10 @@ const addConversation = async (req, res) => {
   }
 };
 
+// function get all conversation
 const getConversation = async (req, res) => {
   try {
-    const conversation = await Conversation.find({ chat: req.params.id });
+    const conversation = await Conversation.find({ chat: req.params.id }); // get all conversation by Id chat
 
     if (!conversation)
       return res.status(400).json({
@@ -79,6 +80,8 @@ const getConversation = async (req, res) => {
   }
 };
 
+
+// function delete chat
 const deleteChat = async (req, res) => {
   try {
     const chat = await Chat.findById(req.params.id);

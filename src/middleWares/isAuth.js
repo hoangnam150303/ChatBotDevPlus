@@ -4,7 +4,7 @@ const { User } = require("../models/userModels");
 dotenv.config();
 const isAuth = async (req, res, next) => {
   try {
-    const token = req.headers.token;
+    const token = req.headers.token.split(" ")[1];
 
     if (!token)
       return res.status(403).json({
