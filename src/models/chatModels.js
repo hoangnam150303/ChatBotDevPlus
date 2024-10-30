@@ -7,9 +7,9 @@ const schema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    latestMessage: {
+    Message: {
       type: String,
-      default: "New Chat",
+      default: " ",
     },
   },
   {

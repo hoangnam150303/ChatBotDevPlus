@@ -1,10 +1,8 @@
 const { Chat } = require("../models/chatModels");
-const { Conversation } = require("../models/conversationModel");
 
 const createChat = async (req, res) => {
   try {
     const userId = req.user._id; // Get id of user to create a new chat, when create a new chat, that chat will have a id of the user who is chatting.
-
     const chat = await Chat.create({
       user: userId,
     });
@@ -30,49 +28,32 @@ const getAllChats = async (req, res) => {
   }
 };
 
-const addConversation = async (req, res) => {
+const updateChat = async (req, res) => {
+  try {
+    const updateChat = await Chat.findByIdAndUpdate(
+      req.params.id,
+      { Message: req.body.message },
+      { new: true }
+    );
+    res.json({
+      updateChat,
+    });
+  } catch (err) {
+    res.status(500).json({
+      message: err.message,
+    });
+  }
+};
+
+const getDetailChat = async (req, res) => {
   try {
     const chat = await Chat.findById(req.params.id);
 
     if (!chat)
       return res.status(400).json({
-        message: "No chat with this user",
-      });
-
-    const conversation = await Conversation.create({
-      chat: chat._id,
-      question: req.body.question,
-      answer: req.body.answer,
-    });
-
-    const updatedChat = await Chat.findByIdAndUpdate(
-      req.params.id,
-      { latestMessage: req.body.question },
-      { new: true }
-    );
-
-    res.json({
-      conversation,
-      updatedChat,
-    });
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
-    });
-  }
-};
-
-// function get all conversation
-const getConversation = async (req, res) => {
-  try {
-    const conversation = await Conversation.find({ chat: req.params.id }); // get all conversation by Id chat
-
-    if (!conversation)
-      return res.status(400).json({
         message: "No conversation with this user",
       });
-
-    res.json(conversation);
+    res.json(chat);
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -80,6 +61,23 @@ const getConversation = async (req, res) => {
   }
 };
 
+// // function get all conversation
+// const getConversation = async (req, res) => {
+//   try {
+//     const conversation = await Conversation.find({ chat: req.params.id }); // get all conversation by Id chat
+
+//     if (!conversation)
+//       return res.status(400).json({
+//         message: "No conversation with this user",
+//       });
+
+//     res.json(conversation);
+//   } catch (error) {
+//     res.status(500).json({
+//       message: error.message,
+//     });
+//   }
+// };
 
 // function delete chat
 const deleteChat = async (req, res) => {
@@ -111,7 +109,7 @@ const deleteChat = async (req, res) => {
 module.exports = {
   createChat,
   getAllChats,
-  addConversation,
-  getConversation,
   deleteChat,
+  updateChat,
+  getDetailChat,
 };
