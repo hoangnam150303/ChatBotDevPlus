@@ -30,11 +30,9 @@ const getAllChats = async (req, res) => {
 
 const updateChat = async (req, res) => {
   try {
-    const updateChat = await Chat.findByIdAndUpdate(
-      req.params.id,
-      { Message: req.body.message },
-      { new: true }
-    );
+    const updateChat = await Chat.findByIdAndUpdate(req.params.id, {
+      Message: req.body.message,
+    });
     res.json({
       updateChat,
     });

@@ -8,7 +8,7 @@ const {
   getDetailChat,
   updateChat,
 } = require("../controllers/chatController");
-
+2
 const router = express.Router();
 
 router.post("/new", isAuth, createChat);
