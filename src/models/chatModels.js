@@ -7,6 +7,10 @@ const schema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
+    title: {
+      type: String,
+      default: " ",
+    },
     Message: {
       type: String,
       default: " ",

@@ -30,9 +30,16 @@ const getAllChats = async (req, res) => {
 
 const updateChat = async (req, res) => {
   try {
-    const updateChat = await Chat.findByIdAndUpdate(req.params.id, {
-      Message: req.body.message,
-    });
+    const firstPText =
+      req.body.message.match(/<p[^>]*>(.*?)<\/p>/i)?.[1] || " ";
+    const updateChat = await Chat.findByIdAndUpdate(
+      req.params.id,
+      {
+        Message: req.body.message,
+        title: firstPText,
+      },
+      { new: true }
+    );
     res.json({
       updateChat,
     });
