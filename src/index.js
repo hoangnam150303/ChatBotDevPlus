@@ -1,7 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const connectDb = require("./database/database");
-const cors = require("cors");
 dotenv.config();
 const port = process.env.PORT || 8000;
 const userRouter = require("./routes/userRoutes");
@@ -11,7 +10,6 @@ const app = express();
 
 //middleware
 app.use(express.json());
-app.use(cors());
 
 //View Engine
 configViewEngine(app);
