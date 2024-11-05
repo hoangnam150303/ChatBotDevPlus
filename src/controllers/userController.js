@@ -1,5 +1,4 @@
 const { sendMail } = require("../middleWares/sendMail");
-
 const jwt = require("jsonwebtoken");
 const { User } = require("../models/userModels");
 
@@ -43,17 +42,14 @@ const verifyUser = async (req, res) => {
     const { otp, verifyToken } = req.body;
     console.log(typeof otp);
     const verify = jwt.verify(verifyToken, process.env.Activation_sec);
-
+    console.log("verifyotp:", typeof verify.otp);
     if (!verify) {
       return res.status(400).json({
         isAuth: false,
         message: "OTP Expired",
       });
     }
-    console.log(verify.otp == otp);
-    console.log("verify otp", verify.otp);
-    console.log("otp", otp);
-    if (verify.otp.toString() !== otp.toString()) {
+    if (verify.otp !== otp) {
       return res.status(400).json({
         message: "Wrong otp",
         isAuth: false,
@@ -90,24 +86,8 @@ const myProfile = async (req, res) => {
   }
 };
 
-const getLoginPage = (req, res) => {
-  res.render("login.ejs");
-};
-
-const getVerifyPage = (req, res) => {
-  // const { token } = req.query;
-  res.render("verify.ejs");
-};
-
-const getHomePage = (req, res) => {
-  res.render("home.ejs");
-};
-
 module.exports = {
   loginUser,
   verifyUser,
   myProfile,
-  getLoginPage,
-  getVerifyPage,
-  getHomePage,
 };
