@@ -49,7 +49,7 @@ const verifyUser = async (req, res) => {
         message: "OTP Expired",
       });
     }
-    if (verify.otp !== otp) {
+    if (verify.otp.toString() !== otp.toString()) {
       return res.status(400).json({
         message: "Wrong otp",
         isAuth: false,
